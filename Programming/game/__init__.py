@@ -2,7 +2,7 @@ import pygame
 import sys
 from game.constants import Constants
 from game.player import Player
-
+from game.ball import Ball
 
 class Game:
     def __init__(self):
@@ -14,9 +14,10 @@ class Game:
         self.bg_color = pygame.Color("black")
 
         self.player = Player()
+        self.ball = Ball()
 
         self.all_sprites = pygame.sprite.Group()
-        self.all_sprites.add(self.player)
+        self.all_sprites.add(self.player,self.ball)
 
 
     def handle_events(self):
@@ -32,6 +33,10 @@ class Game:
         pass
 
     def update(self):
+        if self.ball.is_off_screen():
+            self.player.lose_life()
+            self.ball.reset()
+        self.ball.check_collide_paddle(self.player)
         self.all_sprites.update()
         pygame.display.update()
         self.clock.tick(120)
