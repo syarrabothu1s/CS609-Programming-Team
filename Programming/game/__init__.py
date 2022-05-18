@@ -3,6 +3,7 @@ import sys
 from game.constants import Constants
 from game.player import Player
 from game.ball import Ball
+from game.bricks import Bricks
 
 class Game:
     def __init__(self):
@@ -18,6 +19,8 @@ class Game:
 
         self.all_sprites = pygame.sprite.Group()
         self.all_sprites.add(self.player,self.ball)
+
+        self.bricks = Bricks(self.all_sprites)
 
 
     def handle_events(self):
